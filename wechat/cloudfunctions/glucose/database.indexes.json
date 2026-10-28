@@ -1,0 +1,14 @@
+{
+  "instructions": "在云开发数据库控制台创建下列复合索引；此文件是部署规格，不会由云函数自动执行。",
+  "indexes": [
+    {
+      "collection": "glucose_records",
+      "name": "owner_sync_version",
+      "unique": true,
+      "fields": [
+        { "field": "ownerKey", "direction": "asc" },
+        { "field": "syncVersion", "direction": "asc" }
+      ]
+    }
+  ]
+}

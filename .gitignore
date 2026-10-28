@@ -1,0 +1,51 @@
+node_modules/
+dist/
+tmp/
+.DS_Store
+.tools/
+
+
+# Repository organization baseline
+# Dependencies and generated files
+node_modules/
+.pnpm/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.build/
+.swiftpm/
+dist/
+build/
+coverage/
+artifacts/
+.artifacts/
+backups/
+reports/
+tmp/
+.runtime/
+.secrets/
+.local/
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+project.private.config.json
+*.private.*
+# Runtime and real business data
+*.db
+*.sqlite*
+*.log
+*.har
+data/private/
+# OS and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,1 @@
+{"desc":"个人健康记录不向微信搜索开放内容索引","rules":[{"action":"disallow","page":"*"}]}

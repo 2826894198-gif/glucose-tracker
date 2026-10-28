@@ -1,0 +1,5 @@
+{
+  "glucose_accounts": { "read": false, "write": false },
+  "glucose_records": { "read": false, "write": false },
+  "glucose_operations": { "read": false, "write": false }
+}

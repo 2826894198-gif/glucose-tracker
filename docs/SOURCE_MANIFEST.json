@@ -1,0 +1,760 @@
+{
+  "date": "2026-10-28",
+  "files": [
+    {
+      "path": ".editorconfig",
+      "bytes": 196,
+      "sha256": "19259ce28d207a60acea96f3b78af63e328558e8ef6e8f140e73d3409adc7263"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 100,
+      "sha256": "0ba87145ffb1703f740f43bbba003a534865562b6136aaac39679f2a7e67736d"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "bytes": 225,
+      "sha256": "a00264efd5648c8fbaf309d61d2577b8c568e16790a629a6b417f862cfac7b22"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "bytes": 179,
+      "sha256": "3366778642e68a8f7e8fb8e5aa58734e208e13234698d831059cee38cd3badd9"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 254,
+      "sha256": "c565231e78ffa3a990f66fe732eafec2891f3d297cb42665acf558b982f36018"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 573,
+      "sha256": "7afcccfff2f160e281d58ba5aa7b6188f9f824606030a1ad956c373fc790f4d4"
+    },
+    {
+      "path": ".nvmrc",
+      "bytes": 3,
+      "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 643,
+      "sha256": "6f41be21898429096006535651affb317faf5a30819519a731a9c9fcb91db718"
+    },
+    {
+      "path": "DEPLOY.md",
+      "bytes": 2842,
+      "sha256": "5ea8d935c355afaaf0de25409cecbb84b2f76eaa48282db5173fcfc77d6268a3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2651,
+      "sha256": "33662a9e357a5ca149848d35fbac5059b2cf105b45dcad10483bb62f52762ea2"
+    },
+    {
+      "path": "RIGHTS.md",
+      "bytes": 468,
+      "sha256": "2294531cdf2dcda025fafcaedfde64ffd17295648fa4397d61d0ac50112efc2e"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 458,
+      "sha256": "4567a39622d24f88ac3b9f20103e006c771f74af949052359e78ff8100e1281c"
+    },
+    {
+      "path": "app.js",
+      "bytes": 56585,
+      "sha256": "9067eab51c52b49bc5cfb238cbdb6c0ef0537d0361dcea75688829d42e4c2528"
+    },
+    {
+      "path": "docs/REPOSITORY_STATUS.md",
+      "bytes": 1416,
+      "sha256": "e32944b528c84a8c2c6e69685b951c8f2388e0021ddf07e0ec15333d25e8f044"
+    },
+    {
+      "path": "docs/SHOWCASE.md",
+      "bytes": 1700,
+      "sha256": "3442eaef3e7d4fcd63220aa3cab05ac20b354abf08131b2677179fab0757f6ae"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 513,
+      "sha256": "6d4068aa7bed745fc5bce4f8b665ad1ee7fc97255bb358b56e2a012edb277db0"
+    },
+    {
+      "path": "index.html",
+      "bytes": 753,
+      "sha256": "05a15317ef1262c9e646988782abd87e48cbaf12fa413cebc33cf7348c74043a"
+    },
+    {
+      "path": "netlify.toml",
+      "bytes": 276,
+      "sha256": "af6b0638b537a4e67090e10237c1b3a2f1beab9d078691043f7f7359243838ea"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 36540,
+      "sha256": "6785f1ac3e25f26ebc7295a75c047b8bc74e523ee62290286e3e2d68b267d0aa"
+    },
+    {
+      "path": "package.json",
+      "bytes": 302,
+      "sha256": "203ce7b360fafd08ebae8dcc405922feab4ff08b3581afb0d87c97dd310b3021"
+    },
+    {
+      "path": "public/icon.svg",
+      "bytes": 406,
+      "sha256": "ee9e2adba54c53776288dbe751d08117a34ee31bebf2f90d1477607240bdd853"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "bytes": 407,
+      "sha256": "6284b21ee5a874dd4f0cbef37a880389c784452d95ecaf2c31534939c387c68a"
+    },
+    {
+      "path": "public/refresh.html",
+      "bytes": 1692,
+      "sha256": "e45fb1fcd43debb82d3ab41e753bcd200690813463a244f91530c5a6553b03d6"
+    },
+    {
+      "path": "public/sw.js",
+      "bytes": 1029,
+      "sha256": "d714f995421877ca94486fb4c265e04637dd2c2cc0c122f36e71b6dbe5b1c180"
+    },
+    {
+      "path": "scripts/clear-demo-data.js",
+      "bytes": 374,
+      "sha256": "f2b62c038707463809499421061a413cddeb5bdf19dbbac18bbb0739cf6ae6ae"
+    },
+    {
+      "path": "scripts/npm.sh",
+      "bytes": 330,
+      "sha256": "f73728f5d82c48a512ca42fdcf452bf69a4c19fc9bf59b5ca114bb47daba6051"
+    },
+    {
+      "path": "scripts/open-local.command",
+      "bytes": 69,
+      "sha256": "58a24520f4ee91c209ba3d3e642fbecb1d7780a4c238a3c885fcf7daf4d6811c"
+    },
+    {
+      "path": "scripts/seed-demo-data.js",
+      "bytes": 2186,
+      "sha256": "73969d572dd20297bd805df1648a4a36bf0cb3199f7232351b4948742cf39963"
+    },
+    {
+      "path": "scripts/setup-node.sh",
+      "bytes": 820,
+      "sha256": "ca80f563b0ff265563c87b7f21aad28dc34cbd7d66debc3d60480ef05c59d33a"
+    },
+    {
+      "path": "scripts/start-dev.command",
+      "bytes": 179,
+      "sha256": "dec93d95f08bcd00905bd54220ad9d9057630ed1f982ac124c1358b4851f11a2"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 25938,
+      "sha256": "41b8354440ed0172e5d781c2294934971f608664ae7c1a189b65a77f7d4bdbd0"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 447,
+      "sha256": "e4a385b7b35bad453e2f6bc4ce0fab4ff8ceb43014eb7771b96bc7f0df3ec107"
+    },
+    {
+      "path": "vite.config.js",
+      "bytes": 85,
+      "sha256": "95b596be705154cdb0bcf1ab4014afa4c66e571526813a865684c1d8233f6425"
+    },
+    {
+      "path": "wechat/.gitignore",
+      "bytes": 119,
+      "sha256": "26e4eea2735a1fea1a7afdb43f2fdeecfb50499b7862a462ed94c8215e9caf02"
+    },
+    {
+      "path": "wechat/AGENTS.md",
+      "bytes": 3061,
+      "sha256": "c9546daa49f80ef786e50989dbc69280b97798273c65d45d71f22d2fbefa7293"
+    },
+    {
+      "path": "wechat/README.md",
+      "bytes": 1462,
+      "sha256": "b2ea1438ea340a3bb0dea45fbaceaae3e28254f0c4f1c79efaa96388a9475d8d"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/config.json",
+      "bytes": 45,
+      "sha256": "ca3664cc370f406d81b3d260e643ac226b52d2322ca8df6346b6476796bf6fc8"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/database.indexes.json",
+      "bytes": 405,
+      "sha256": "fee96cc2bfa09f9895b2f1da67e862277776256660b00106d4594df682386cf3"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/database.rules.json",
+      "bytes": 175,
+      "sha256": "da75db12585ca962db3fcd075b80c9af6acb180a95be856400c831e22a8a30fa"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/dependency-audit.json",
+      "bytes": 4557,
+      "sha256": "745aaa103248741239a30d11cb49e765148e48a1574a3e70551b0cc7244de949"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/index.js",
+      "bytes": 422,
+      "sha256": "9af7ee524edfca926e0a18357ebdc6a67168e94297e1f4c3f52c8bc21cd6d712"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/package-lock.json",
+      "bytes": 43896,
+      "sha256": "5bbafc31e232c6b09c0a0bce769aa531078d01765f4254f98265601279717126"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/package.json",
+      "bytes": 388,
+      "sha256": "28817c50583a5e31b81e3ee84e4ebb653abd3464271c7e94138ba92b39d3bd8c"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/repository.cjs",
+      "bytes": 2324,
+      "sha256": "bfc566bf34640bb38ba6e1898a4dc0ce67c6bf9e1e6ec9350110137914548a47"
+    },
+    {
+      "path": "wechat/cloudfunctions/glucose/service.cjs",
+      "bytes": 17956,
+      "sha256": "cf3816dcdd94124e1adcd4b5f000b41628c2a58410288ef32852d5cbfb39b9ad"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/config.json",
+      "bytes": 39,
+      "sha256": "615d688df21f279280a3935ffe98ca79359e4ebb1354550be834f350a75d860c"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/index.js",
+      "bytes": 1595,
+      "sha256": "90b9e408f68d97dff296736048e84c29c19402870c3986f0fb5cc601bb4c4d6b"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/package-lock.json",
+      "bytes": 43890,
+      "sha256": "f6ca73dc29febc202b5ac54f3580f1777717fbeb16c1fd357805a7cceacfd6d3"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/package.json",
+      "bytes": 306,
+      "sha256": "adafc16b10385fd20a2dcb907dccde92852d3ad0647276043012b453bf788b28"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/parse-reading.mjs",
+      "bytes": 5422,
+      "sha256": "d1296dcfd981fb0ce6fe596c5d0270775b7e12a978f6b57adeb2ebd6b1f4e51e"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/runtime/.dockerignore",
+      "bytes": 49,
+      "sha256": "9e6557dc62f907f268b6ead10e29b920b3c0031551bf244dbb7f48e46c342f03"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/runtime/Dockerfile",
+      "bytes": 425,
+      "sha256": "b36ab3aaa519b5bf9404f2c62e244895404263ab3940104e406015ffd9593d2e"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/runtime/app.py",
+      "bytes": 5592,
+      "sha256": "1a1f89de3678787b998e39ea64f00e99790b205f3f8dfb97501a7233999422ff"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/runtime/requirements.lock.txt",
+      "bytes": 355,
+      "sha256": "a2a67fdbb2eff39c07e5cffbf7501954e5e0b6d4b5e9033cc6f6cb803b3d5933"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/runtime/requirements.txt",
+      "bytes": 100,
+      "sha256": "b2e20cd104848952e77c2439957664af4a02a1ec9fe9ed29704c63624c0515b3"
+    },
+    {
+      "path": "wechat/cloudfunctions/recognize/service.js",
+      "bytes": 5893,
+      "sha256": "fcd1babddca8272c39865beee40061e91afa3ea233d1ea53db492ff2f4aa95b7"
+    },
+    {
+      "path": "wechat/docs/cloud-security.md",
+      "bytes": 13034,
+      "sha256": "9c9706766784fbb62c2cd55a86ec05b0ab3fe00d7b870c3e75169bbf53682c62"
+    },
+    {
+      "path": "wechat/docs/engineering-status.md",
+      "bytes": 1272,
+      "sha256": "d22dad77620bc751166c1ce6279870025da070d0d9a03eac15edc7333deb6d53"
+    },
+    {
+      "path": "wechat/docs/production-ocr.md",
+      "bytes": 8171,
+      "sha256": "3727134c7e819f9ed85a8ce77765eb981780a0677d690060aced2f74874e8866"
+    },
+    {
+      "path": "wechat/docs/registration-guide.md",
+      "bytes": 15042,
+      "sha256": "ef7fc2e47990ec13ad8da39e4e417ae4b4fe58c37ed41f01be007d12b0cebf6d"
+    },
+    {
+      "path": "wechat/docs/release-requirements.md",
+      "bytes": 6279,
+      "sha256": "f5e2d6e5fcbdaaea924c535648e700e7f648c45d31da958223b9dbbbc5d4de33"
+    },
+    {
+      "path": "wechat/miniprogram/app.js",
+      "bytes": 1296,
+      "sha256": "a8ae1edc712dadef38ed4ad1f510aad77794e44883e24657e0a3569a76ea5d45"
+    },
+    {
+      "path": "wechat/miniprogram/app.json",
+      "bytes": 292,
+      "sha256": "7f55f8033191d2bb7d77af231e346aa1f36a1f65d5b4bb1f5c1863576b7b04a4"
+    },
+    {
+      "path": "wechat/miniprogram/app.wxss",
+      "bytes": 529,
+      "sha256": "34f871e8bbd643106d730508554423dc38b1d2d76cd4915b83298cd6aa584820"
+    },
+    {
+      "path": "wechat/miniprogram/assets/demo-meter.png",
+      "bytes": 808,
+      "sha256": "7d9ea473131ef5dca57d552f365991deced24df2f9c3205c19b1e0a0bcc4ad82"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/album-green.png",
+      "bytes": 1341,
+      "sha256": "e32ff80bba00d8d789a96e55c5b2e01a8e0c0735f73e813e9967d97e4c6ac28d"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/album-muted.png",
+      "bytes": 1325,
+      "sha256": "6fc9687766394fc793a14fed4eb170975bf1fa9376dd8b116daa75acdffaa55c"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/album-white.png",
+      "bytes": 1065,
+      "sha256": "d60b14aa0dd59af679d60976be1f8654ef8987a57fb36f96ae475cb4023e83ad"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/back-green.png",
+      "bytes": 593,
+      "sha256": "d08862c0249f2f5d3a419fd9636408fb9ec41c2b28684f2d9487ab1800fc61d9"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/back-muted.png",
+      "bytes": 588,
+      "sha256": "bc007e619488b3705063224654af9e0a362975790e65c8d79fa4eb7c4166a193"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/back-white.png",
+      "bytes": 457,
+      "sha256": "b3fe5a3118ec5f433c569eb81516fdf8dca606498afb5c7f4ebc8f9548dee121"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/camera-green.png",
+      "bytes": 1373,
+      "sha256": "68233f73af0eb963f749ea9e97bda60e1691d7c2f0219945d0d8323aec0076dd"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/camera-muted.png",
+      "bytes": 1353,
+      "sha256": "e69c5b9b54e329e04d39c87dd3733e99b19626efc6dd7b9c79bdda2fe677a218"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/camera-white.png",
+      "bytes": 1061,
+      "sha256": "493a1c38176ce3516cc0874823e1945e7023042a179ac1beafee8f1eddd178cc"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/chart-green.png",
+      "bytes": 808,
+      "sha256": "7d9ea473131ef5dca57d552f365991deced24df2f9c3205c19b1e0a0bcc4ad82"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/chart-muted.png",
+      "bytes": 795,
+      "sha256": "a989215a43ede78fe372ace4af1402e6ff710d797547ab18fa19058392379eee"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/chart-white.png",
+      "bytes": 660,
+      "sha256": "4364e915ba9bde703a30eb4238ac4f3703314f1925ca6b057383c71b2553699f"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/check-green.png",
+      "bytes": 1764,
+      "sha256": "12002e0ecf23161fd3f3d44d9e918b95caf3a98099ffc9d47b6a5de20249538a"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/check-muted.png",
+      "bytes": 1753,
+      "sha256": "e6cc55e8ee8a278b7100c0dc1d07c58209488e8decd1456b97d9291478556797"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/check-white.png",
+      "bytes": 1448,
+      "sha256": "c54fe2c40eda145b99bd5eb631deb9c266856d2934644dffd53a6046bf3c588e"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/download-green.png",
+      "bytes": 791,
+      "sha256": "5d70fabeac1601956dcf8d22a75bbd8fe775b726e3e6ec24e67d9712cb842f2f"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/download-muted.png",
+      "bytes": 784,
+      "sha256": "b0ed65665f0456da42995f290aba7a4801c7d8b1f1ea4d03dc2273b6aa2e892c"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/download-white.png",
+      "bytes": 655,
+      "sha256": "9f555b1ac8b4b826610e6662e31a07ef6aa9cb855d74ff8aab6decebfee69a32"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/edit-green.png",
+      "bytes": 678,
+      "sha256": "9c98e804d7444921cecb1f7d5fac641c154290760e5e2ab587afc9b9da90e577"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/edit-muted.png",
+      "bytes": 668,
+      "sha256": "809df7b9a2904a421ae9ffe0edcba2620a9275e299932b8ae33baa64dad9f41e"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/edit-white.png",
+      "bytes": 553,
+      "sha256": "054ce6e2a1d1858394fc98c5ec5f67eecad53b4f9f09ac2a43a987a1b1ce89a2"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/home-green.png",
+      "bytes": 1029,
+      "sha256": "1e85ce8c00c6c3c36c80ae2879f03dba76e2966ac285a74f471f2fa67d208934"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/home-muted.png",
+      "bytes": 1023,
+      "sha256": "827bc1a2856e8c90870030cd51acfc27dc262f4fd253777dd8a7f26e48360c33"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/home-white.png",
+      "bytes": 854,
+      "sha256": "6d80b96a00cb35842839b76d6cfdb1e427d742f0c42cbd8bdd2693d09105b1b4"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/info-green.png",
+      "bytes": 1603,
+      "sha256": "40e7c5d3e0486d9c2c0d307f9244eb4a1f5c2c55f511e497a742e11edcefe55e"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/info-muted.png",
+      "bytes": 1598,
+      "sha256": "c0a822bb0e2d9591f60f7bc988c7ea32782528794883b94d8945a9f04753a0d6"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/info-white.png",
+      "bytes": 1293,
+      "sha256": "a6c127ac479cd504b23462712a5e9d03e8664f9cf284b53bf6780f9b57d78989"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/next-green.png",
+      "bytes": 647,
+      "sha256": "d7cea43e13a0f11213e15f9310f060e919227ee4acce7e05b2a71fbe26e944fe"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/next-muted.png",
+      "bytes": 641,
+      "sha256": "116fb52d8fc586cf46bb247d9ce5e08c80fee96d4dffb8ed2417992cdcc33f36"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/next-white.png",
+      "bytes": 494,
+      "sha256": "9e00984620c7f45e8c12784034eaafe1bc1276353723b0f854683ce3879df8fe"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/note-green.png",
+      "bytes": 786,
+      "sha256": "a24601e75c659e24aeeb543e489e6af957571e1f6dadaa679dfb815582716b36"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/note-muted.png",
+      "bytes": 781,
+      "sha256": "5a8c054305e3f2302313dbf5cc5e0a8d69b867c5988e133d9947d83ce3256d2d"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/note-white.png",
+      "bytes": 656,
+      "sha256": "9a9c6080f25a08208cd5bd563a29b153564959d02b5617a3177c23e4a0a856a6"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/person-green.png",
+      "bytes": 1473,
+      "sha256": "6c7cb199c61451c6b492cc5a44e26374f26604bc4c1dd11864bda8191e64bbab"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/person-muted.png",
+      "bytes": 1470,
+      "sha256": "d141a8a97426b408700673f133e37488bc8502ad23228c56421e7814014957b9"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/person-white.png",
+      "bytes": 1168,
+      "sha256": "0747aafe3d0bbdd8b51881531489d3a0c482bc82f8bb04138be62f1eb8c5be47"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/plus-green.png",
+      "bytes": 373,
+      "sha256": "935cd26898cd990abca6959a413a7b53fc66cf8837141f250ef22934357673ab"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/plus-muted.png",
+      "bytes": 364,
+      "sha256": "cf1ee2f642c66f45c881420809350ce768d9e9cd21d89dc0bcd0273f48923da3"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/plus-white.png",
+      "bytes": 295,
+      "sha256": "85d6c36f5436c895df91ec9dc4ddffa1d135d5cc447b1ae3168c07cd846e6860"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/restore-green.png",
+      "bytes": 909,
+      "sha256": "56fd441816edc597f60f202094630b57ffe368893e4e17c297d3d7b6b8663dc7"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/restore-muted.png",
+      "bytes": 900,
+      "sha256": "c3569c40bba2d58ec9c5f729d1062debd5c31afc7a8be52ef516e41b0e9d942d"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/restore-white.png",
+      "bytes": 711,
+      "sha256": "64e9bcab2e37bfa042e64d7291d0a4eade714050467d98f576e28f5975b236c4"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/settings-green.png",
+      "bytes": 1227,
+      "sha256": "2cca8ae8ec86a98016a5b8fbf35ddbc64ebfcd90046cbba56f56bd77ea3f36f2"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/settings-muted.png",
+      "bytes": 1219,
+      "sha256": "3ff341917158684703e79881c1e8daffa84e5934ef271c8f1d3830c967168e2a"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/settings-white.png",
+      "bytes": 921,
+      "sha256": "d69af1341bf70628f79fdebf05025326d391d813eb3a4734049f1fbaf981a267"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/trash-green.png",
+      "bytes": 523,
+      "sha256": "019039a8adf40849123ddd21be941749ca9b5b125334465c1e9c6e4e2310d322"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/trash-muted.png",
+      "bytes": 531,
+      "sha256": "850241e6795ecd3d60cf1dc57d2f72450838ac66fd5aeb958243548b4a211ca6"
+    },
+    {
+      "path": "wechat/miniprogram/assets/icons/trash-white.png",
+      "bytes": 430,
+      "sha256": "739ae82bffc84f35430c9166213adb457f88e959a6ba8853d202703b9ef7078b"
+    },
+    {
+      "path": "wechat/miniprogram/config.js",
+      "bytes": 225,
+      "sha256": "58bb1e8ab8cccff7e4063da1dcad0e50c9c87bcc0b45eabf31f934a993595649"
+    },
+    {
+      "path": "wechat/miniprogram/pages/home/index.js",
+      "bytes": 40225,
+      "sha256": "0bb365d95902f72e9132a707c1a7dc3bba27ce4e79a0480ccfd4fb537502f72f"
+    },
+    {
+      "path": "wechat/miniprogram/pages/home/index.json",
+      "bytes": 71,
+      "sha256": "2d58dfb247b2b99c98c2e5a232c411cf350ab8ff0ac5873d515d4eab44073d45"
+    },
+    {
+      "path": "wechat/miniprogram/pages/home/index.wxml",
+      "bytes": 31648,
+      "sha256": "116049ea2e09623628db007996255b5e11b4f5b0b71565e12a8b6297c95791b8"
+    },
+    {
+      "path": "wechat/miniprogram/pages/home/index.wxss",
+      "bytes": 14084,
+      "sha256": "1b4dc50cd6e7fa184edf2cef2d0dda996abbd6724239ea46a47fc4ac502df89b"
+    },
+    {
+      "path": "wechat/miniprogram/services/README.md",
+      "bytes": 5151,
+      "sha256": "5840fdc8373420bc824bb81cf34d72ae66c6c04a7b54a82f57bcd17a37ba90dc"
+    },
+    {
+      "path": "wechat/miniprogram/services/client.js",
+      "bytes": 27047,
+      "sha256": "96f0fd8b6672eeccdec7c1dffd33e7cee585b81474694dec0917e8dbbe04a820"
+    },
+    {
+      "path": "wechat/miniprogram/sitemap.json",
+      "bytes": 109,
+      "sha256": "f2b1e078d24b61d6015e3ffeead0949322993833ce12089b6b5f6c43807e6622"
+    },
+    {
+      "path": "wechat/miniprogram/utils/domain.js",
+      "bytes": 16989,
+      "sha256": "da7d669367d1bb9460e14f220ad01621db0a2950c27790c94b1848f6bc84431c"
+    },
+    {
+      "path": "wechat/package-lock.json",
+      "bytes": 14487,
+      "sha256": "4e0d67ff072891999e1188c54a97073f0b93583447c67fa79c4a7ddd7456c594"
+    },
+    {
+      "path": "wechat/package.json",
+      "bytes": 551,
+      "sha256": "f2428842caf804f60f06ace54fcb3c296a50d87b86f7af55ff8520b5a1ce1086"
+    },
+    {
+      "path": "wechat/project.config.example.json",
+      "bytes": 539,
+      "sha256": "4f7e1b7921e69afce43386bd395795f16507e72bd3e235f193b1f1599af23c62"
+    },
+    {
+      "path": "wechat/project.config.json",
+      "bytes": 544,
+      "sha256": "062c948f4ab7135298cc91c3a92830813e9bff7c2abbc79a72d1c9026a0189d7"
+    },
+    {
+      "path": "wechat/scripts/build.cjs",
+      "bytes": 953,
+      "sha256": "ad6c5d157bb691a397581218780798a3c7047dae3a2a1564a7c079f0af5a8b28"
+    },
+    {
+      "path": "wechat/scripts/check.cjs",
+      "bytes": 10067,
+      "sha256": "918e8e7fce6e359120c67bd575794c633f66c2ba23c12f2807d2bececcad85e9"
+    },
+    {
+      "path": "wechat/scripts/cloud-package.cjs",
+      "bytes": 2950,
+      "sha256": "ff6f8644b5be21d70a43b51ae9c340800da835fbc17938e83b3aa72e70c66b1b"
+    },
+    {
+      "path": "wechat/scripts/configuration.cjs",
+      "bytes": 5197,
+      "sha256": "06c3f2cacfd1f9f7d02b571b020147e1f38138c0c0f68d3764ed367b19dcf541"
+    },
+    {
+      "path": "wechat/scripts/configure.cjs",
+      "bytes": 636,
+      "sha256": "c1631aaeed8381965b3c83e5006022fa8d26a5c409fdbb581ecc6b9968e54afb"
+    },
+    {
+      "path": "wechat/scripts/deploy.cjs",
+      "bytes": 5539,
+      "sha256": "4dcbe57e9171184ff88743205c1baffc345ee4a9d1f3d1e4a6c6342477eb9526"
+    },
+    {
+      "path": "wechat/scripts/developer-tool.cjs",
+      "bytes": 1461,
+      "sha256": "8392b150cd700672dd0c5b52159ab8711f599fe4c3bd95773e0274fc1ab511f8"
+    },
+    {
+      "path": "wechat/scripts/domain-entry.js",
+      "bytes": 327,
+      "sha256": "af3f1cb5d52474130a05bc99834094fb5da42bf3cd3e884f8fc120f7f0647ea4"
+    },
+    {
+      "path": "wechat/scripts/package.py",
+      "bytes": 3675,
+      "sha256": "ac8bb6c24e8570c856c569eb69709e3189457b2806d7b7fc2ecb7530729b4d7a"
+    },
+    {
+      "path": "wechat/scripts/readiness.cjs",
+      "bytes": 827,
+      "sha256": "d52a714db0a54a0c657d5a723d67241e0ba0b0237f95af47b3d8ffca119de87e"
+    },
+    {
+      "path": "wechat/scripts/test-ocr.cjs",
+      "bytes": 4607,
+      "sha256": "8509b5bd3b8fa2bdf4dc382487fd21ea15bc4389f02f25dff3391dc025243237"
+    },
+    {
+      "path": "wechat/scripts/upload.cjs",
+      "bytes": 2863,
+      "sha256": "c1e5d7ba0a4e5068d74de87b329aba1c4cd305ae38e7f63e9dbeb2a7149705b4"
+    },
+    {
+      "path": "wechat/shared/data.ts",
+      "bytes": 14393,
+      "sha256": "d2e5c6f4145090a2b11ae67b0c197f2f6697522b42bd76c2a4b43ba5f20ca2b1"
+    },
+    {
+      "path": "wechat/shared/insights.ts",
+      "bytes": 12924,
+      "sha256": "cd554816e93778abf30f07baef7bb18764e90202e971aad9d926d1d79ff05464"
+    },
+    {
+      "path": "wechat/shared/provenance.json",
+      "bytes": 660,
+      "sha256": "6c84790f497db27248c238057945b05d83e51671bbfa466d33b1718ed3d8a69c"
+    },
+    {
+      "path": "wechat/tests/cloud-dependency.test.cjs",
+      "bytes": 6255,
+      "sha256": "68ff3281c9a729fd38b1c9c1649700a1bebcf208e79171be5869537d2e3cac0e"
+    },
+    {
+      "path": "wechat/tests/cloud-package.test.cjs",
+      "bytes": 2045,
+      "sha256": "3cd1839e463f6c0eca4ce89850d4f4cb3fc6d7a5af53d2a453756d7629ff09c9"
+    },
+    {
+      "path": "wechat/tests/cloud-service.test.cjs",
+      "bytes": 18914,
+      "sha256": "6981184d45dcc04ad19f9c27ec3c1ddf2bc75f5ae1115a3b55d9678357e12f37"
+    },
+    {
+      "path": "wechat/tests/developer-tool.test.cjs",
+      "bytes": 2170,
+      "sha256": "f8a953ae13390220c78d9141c6f875e93d3f93d3ba31ca386b9c27c6f995dc4f"
+    },
+    {
+      "path": "wechat/tests/ocr-runtime.test.py",
+      "bytes": 6391,
+      "sha256": "6a1dc20085fa242136f97a56b22beaddae790d3513cdf44d3ead7a2dbd48e0a1"
+    },
+    {
+      "path": "wechat/tests/ocr-transport.test.cjs",
+      "bytes": 4109,
+      "sha256": "53554cf12c7371b2097f9ec2342bac3c4a93499446d7c08e0ead9a77bf92efbc"
+    },
+    {
+      "path": "wechat/tests/recognize.test.cjs",
+      "bytes": 9821,
+      "sha256": "3e3e040febf8c2db9dcbea2d9d3eab5d52e47eacfedc2aec27f2fef9de909b2c"
+    },
+    {
+      "path": "wechat/tests/release-configuration.test.cjs",
+      "bytes": 7544,
+      "sha256": "ac9f766b984c60bb913e65651235e547c80ca0ed50e83a6c7bf49758e46bf9fe"
+    },
+    {
+      "path": "wechat/tests/sync-client.test.cjs",
+      "bytes": 20173,
+      "sha256": "9d6506ed8e665240ac16f4b22d3753bea74fed3490a3e6dd51429b24808b3b2c"
+    },
+    {
+      "path": "wechat/tests/sync-controller.test.cjs",
+      "bytes": 17500,
+      "sha256": "bd7bb4a0d70439a96c1aa040497100aa2210c0821cbe1cc458b4fcdd511d26ae"
+    }
+  ]
+}

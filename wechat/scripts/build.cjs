@@ -1,0 +1,11 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const esbuild = require(require.resolve('esbuild', { paths: [root, path.join(root, '..')] }));
+fs.mkdirSync(path.join(root, 'miniprogram/utils'), { recursive: true });
+esbuild.buildSync({ entryPoints: [path.join(__dirname, 'domain-entry.js')], bundle: true, format: 'cjs', platform: 'neutral', target: 'es2018', outfile: path.join(root, 'miniprogram/utils/domain.js'), legalComments: 'none' });
+fs.mkdirSync(path.join(root, 'miniprogram/assets'), { recursive: true });
+if (!fs.existsSync(path.join(root, 'miniprogram/assets/demo-meter.png'))) throw new Error('Missing optimized demo-meter.png asset');
+const localConfig = path.join(root, 'miniprogram/config.local.js');
+if (!fs.existsSync(localConfig)) fs.writeFileSync(localConfig, 'module.exports = {};\n');
+console.log('Built native domain bundle; synthetic demonstration icon is ready.');

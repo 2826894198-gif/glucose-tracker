@@ -1,0 +1,20 @@
+{
+  "copiedAt": "2026-10-23",
+  "sources": {
+    "data": {
+      "approvedSource": "preview/src/data.ts",
+      "file": "shared/data.ts",
+      "sha256": "d2e5c6f4145090a2b11ae67b0c197f2f6697522b42bd76c2a4b43ba5f20ca2b1"
+    },
+    "insights": {
+      "approvedSource": "preview/src/insights.ts",
+      "file": "shared/insights.ts",
+      "sha256": "cd554816e93778abf30f07baef7bb18764e90202e971aad9d926d1d79ff05464"
+    },
+    "parseReading": {
+      "approvedSource": "preview/server/parse-reading.mjs",
+      "file": "cloudfunctions/recognize/parse-reading.mjs",
+      "sha256": "d1296dcfd981fb0ce6fe596c5d0270775b7e12a978f6b57adeb2ebd6b1f4e51e"
+    }
+  }
+}

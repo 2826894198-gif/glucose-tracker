@@ -1,0 +1,13 @@
+{
+  "name": "family-glucose-cloud",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Identity-scoped WeChat glucose records and synchronization",
+  "main": "index.js",
+  "engines": { "node": ">=18" },
+  "dependencies": { "wx-server-sdk": "4.0.2" },
+  "overrides": {
+    "@cloudbase/node-sdk": { "axios": "0.34.0" },
+    "@cloudbase/database": { "lodash.unset": "4.18.0" }
+  }
+}

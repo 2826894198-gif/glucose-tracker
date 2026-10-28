@@ -1,0 +1,58 @@
+{
+  "checkedOn": "2026-10-22",
+  "registry": "https://registry.npmjs.org",
+  "wxServerSdk": "4.0.2",
+  "registryLatestWxServerSdk": "4.0.2",
+  "lockedCloudbaseNodeSdk": "3.17.2",
+  "registryLatestCloudbaseNodeSdk": "3.18.7",
+  "upstreamLatestStillPins": { "@cloudbase/database": "1.4.3", "axios": "0.27.2" },
+  "baselineAuditCounts": { "critical": 0, "high": 5, "moderate": 1, "low": 0, "total": 6 },
+  "auditCounts": { "critical": 0, "high": 4, "moderate": 0, "low": 0, "total": 4 },
+  "affectedPackages": ["wx-server-sdk", "@cloudbase/node-sdk", "@cloudbase/database", "lodash.set"],
+  "appliedOverrides": {
+    "@cloudbase/node-sdk > axios": {
+      "from": "0.27.2",
+      "to": "0.34.0",
+      "officialMaintenanceTag": "v0x",
+      "source": "https://github.com/axios/axios/releases/tag/v0.34.0",
+      "reason": "Same-source 0.x maintenance branch; 0.30.x is still affected by later advisory ranges. Existing SDK metadata and extension APIs passed compatibility tests."
+    },
+    "@cloudbase/database > lodash.unset": {
+      "from": "4.5.2",
+      "to": "4.18.0",
+      "source": "https://github.com/lodash/lodash/releases/tag/4.18.0",
+      "reason": "Same-source and same-major published modular package fix; ordinary path semantics and blocked prototype deletion paths passed regression tests."
+    }
+  },
+  "remainingRootAdvisory": {
+    "package": "lodash.set",
+    "installedVersion": "4.3.2",
+    "registryLatestVersion": "4.3.2",
+    "severity": "high",
+    "url": "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+    "reachabilityReview": {
+      "pinnedDatabaseVersion": "1.4.3",
+      "onlyRuntimeImport": "@cloudbase/database/dist/commonjs/realtime/virtual-websocket-client.js:3",
+      "runtimeInvocation": "@cloudbase/database/dist/commonjs/realtime/virtual-websocket-client.js:477",
+      "sourceInvocation": "@cloudbase/database/src/realtime/virtual-websocket-client.ts:734",
+      "entryPoints": ["@cloudbase/database/src/query.ts:581 watch", "@cloudbase/database/src/document.ts:389 watch", "@cloudbase/database/src/realtime/websocket-client.ts:975 watch"],
+      "trigger": "Realtime partial update with updatedFields invokes set(doc, fieldPath, value).",
+      "applicationReview": "index.js, service.cjs and repository.cjs do not call watch or accept updatedFields/field paths; repository uses doc.get, doc.set with rebuilt objects, scoped where/orderBy/limit/get and runTransaction.",
+      "conclusion": "The vulnerable function is present in the installed dependency graph; the current application does not invoke the identified watch update path. This is source-level reachability evidence, not a claim that the upstream vulnerability is fixed or every possible runtime path was proven unreachable."
+    }
+  },
+  "compatibilityTest": "node --test wechat/tests/cloud-dependency.test.cjs wechat/tests/cloud-service.test.cjs",
+  "compatibilityResult": { "passed": 17, "failed": 0, "usesRealCloud": false },
+  "automaticForceFixApplied": false,
+  "status": "compatible_maintenance_overrides_applied_lodash_set_remaining",
+  "notes": [
+    "Audit counts refer to affected packages: four high entries propagate from the same remaining lodash.set advisory, not four separate root advisories.",
+    "After overrides npm audit recommends a semver-major downgrade to wx-server-sdk 1.8.3; this was not applied.",
+    "Replacing @cloudbase/database 1.4.3 with latest 2.0.0 would cross an upstream major version and was not silently forced.",
+    "Axios 0.x maintenance releases include security-driven behavior changes; tests cover actual SDK metadata request and callable extension-shim shapes, not live cloud networking, proxies or every Axios feature.",
+    "The lodash.set/unset imports in the pinned database source are in realtime/virtual-websocket-client.ts; this service does not invoke realtime watch APIs. lodash.unset is patched; lodash.set has no same-package fixed release.",
+    "This service exposes no caller-controlled URLs, database paths, query expressions or nested arbitrary update objects. Inputs are strictly whitelisted.",
+    "Deploy with npm that supports overrides (>=8.3.0) and the committed lockfile; prefer npm ci and uploading the built dependency bundle. Remote dependency installation must preserve the same resolved versions.",
+    "Application input restrictions limit reachable attack paths but do not mean dependency findings are cleared. Real-cloud identity, database transactions, permissions, indexes and two-account integration remain unverified without an actual AppID/environment."
+  ]
+}

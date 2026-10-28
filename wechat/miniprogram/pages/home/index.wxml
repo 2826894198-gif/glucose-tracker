@@ -1,0 +1,175 @@
+<template name="record-row">
+  <button class="record" data-id="{{record.id}}" bindtap="openRecord" aria-label="{{record.contextText}}，{{record.value}} {{record.unit}}，{{record.dateTime}}">
+    <view class="record-main">
+      <view class="record-meta"><text>{{record.contextText}}</text><text class="small muted">{{record.relativeDate}} {{record.timeText}}</text></view>
+      <view class="record-value"><text>{{record.value}}</text><text class="unit">{{record.unit}}</text></view>
+      <text wx:if="{{record.rangeStatus}}" class="small range-status">{{record.rangeStatus}}</text>
+      <text class="small muted">{{record.statusText}}</text>
+    </view>
+    <image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" />
+  </button>
+</template>
+
+<template name="trend-controls">
+  <view class="segment" aria-label="查看的天数">
+    <button class="{{days === 7 ? 'selected' : ''}}" data-days="7" bindtap="changeDays">近7天</button>
+    <button class="{{days === 30 ? 'selected' : ''}}" data-days="30" bindtap="changeDays">近30天</button>
+  </view>
+  <view class="filters">
+    <picker class="filter-picker" mode="selector" range="{{contextLabels}}" value="{{momentIndex}}" bindchange="changeMoment" aria-label="选择分析测量时机">
+      <view class="field"><text>{{contextLabels[momentIndex]}}</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></view>
+    </picker>
+    <picker class="filter-picker unit-picker" mode="selector" range="{{units}}" value="{{unitIndex}}" bindchange="changeUnit" aria-label="选择分析单位">
+      <view class="field"><text>{{units[unitIndex]}}</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></view>
+    </picker>
+  </view>
+</template>
+
+<view class="page {{largeType ? 'large' : ''}} {{view === 'capture' ? 'capture-page' : ''}}">
+  <canvas id="trend-canvas" type="2d" class="offscreen-chart" aria-hidden="{{true}}" />
+  <view class="header" style="height:{{headerHeight}}px;padding-top:{{top}}px;">
+    <view class="header-inner" style="padding-right:{{rightSpace}}px;">
+      <button wx:if="{{view !== 'home'}}" class="header-action" bindtap="back" aria-label="返回上一页"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/back-green.png" mode="aspectFit" /></button>
+      <image aria-hidden="{{true}}" wx:else class="icon brand-icon" src="/assets/icons/note-green.png" mode="aspectFit" />
+      <text class="header-title">{{title}}</text>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y="{{true}}" enhanced="{{true}}" scroll-into-view="{{formScrollTo}}" scroll-with-animation="{{true}}" style="top:{{headerHeight}}px;bottom:{{ready ? formFooter ? keyboardHeight + (keyboardHeight > 0 ? 84 : safeBottom + 76) : view === 'capture' ? safeBottom + 94 : showNav ? safeBottom + 76 : 0 : 0}}px;">
+    <view class="content" style="padding-bottom:{{ready ? 24 : safeBottom + 24}}px;">
+
+      <view id="screen-top"></view>
+      <view wx:if="{{!ready && view !== 'privacy'}}" class="stack welcome-gate">
+        <view class="card welcome-card">
+          <image aria-hidden="{{true}}" class="welcome-icon" src="/assets/icons/note-green.png" mode="aspectFit" />
+          <text class="section-title">把每一次测量，记清楚</text>
+          
+          <text class="muted">每人一本，各自保存</text>
+          <text wx:if="{{!configured}}" class="small muted">当前是工程预览，微信账号和个人云记录尚未接通。</text><button class="primary" bindtap="connect" loading="{{connecting}}" disabled="{{connecting}}">{{connecting ? '正在连接微信' : '连接微信，进入我的血糖本'}}</button>
+          <button class="secondary" bindtap="showDemo">先看看功能示例</button>
+          <text wx:if="{{syncError}}" class="notice warning">{{syncError}}</text>
+        </view>
+        <button class="text-button privacy-link" bindtap="toPrivacy">查看数据与隐私说明</button>
+      </view>
+
+      <block wx:else>
+        <view wx:if="{{demo}}" class="notice demo-notice"><view class="row"><text>功能示例</text><button class="text-button" bindtap="leaveDemo">退出示例</button></view></view>
+
+        <block wx:if="{{view === 'home'}}">
+          <view class="section-heading"><view class="stack"><text class="section-title">今天也记一笔</text><text class="muted">{{todayText}}</text></view><button class="text-button" bindtap="toRecords">全部记录</button></view>
+          <button class="sync-status {{syncTone}}" bindtap="retrySync" disabled="{{connecting}}"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/{{syncTone ? 'info' : 'check'}}-green.png" mode="aspectFit" /><view class="stack"><text>{{syncText}}</text><text wx:if="{{outboxCount && !demo}}" class="small">还有 {{outboxCount}} 项等待同步</text></view><text wx:if="{{!demo}}" class="small">重试</text></button>
+          <view wx:if="{{conflicts.length && !demo}}" class="notice warning"><text>有 {{conflicts.length}} 项版本需要你确认</text><button class="text-button" bindtap="toConflicts">去核对版本</button></view>
+          <text wx:if="{{syncError && !demo}}" class="notice warning">{{syncError}}</text>
+          <view wx:if="{{latest}}" class="card latest-card">
+            <view class="row"><text class="muted">最近一次</text><text class="pill">{{latest.contextText}}</text></view>
+            <view class="reading"><text>{{latest.value}}</text><text class="unit">{{latest.unit}}</text></view>
+            <view class="row"><text>{{latest.dateTime}}</text><button class="text-button" data-id="{{latest.id}}" bindtap="openRecord">查看详情</button></view>
+            <text class="small muted">{{latest.statusText}}</text>
+          </view>
+          <view wx:else class="card empty"><image aria-hidden="{{true}}" class="empty-icon" src="/assets/icons/note-green.png" mode="aspectFit" /><text class="section-title">还没有记录</text><button class="primary" bindtap="startRecord">记第一笔</button></view>
+          <button wx:if="{{hasDraft}}" class="notice draft-notice" bindtap="startRecord"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/edit-green.png" mode="aspectFit" /><text>还有一笔未完成，继续填写</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-green.png" mode="aspectFit" /></button>
+          <view class="card chart-card">
+            <view class="section-heading"><text class="section-title">最近的变化</text><button class="text-button" bindtap="toAnalysis">详细分析</button></view>
+            <template is="trend-controls" data="{{days: days, momentIndex: momentIndex, unitIndex: unitIndex, contextLabels: contextLabels, units: units}}" />
+            <image id="trend-picture" class="chart chart-image" src="{{chartImage}}" mode="aspectFit" bindtouchend="selectChart" aria-label="血糖记录趋势图" />
+            <text class="small muted">{{chartCaption}}</text>
+            <button class="secondary" bindtap="toAnalysis">看看近期变化和范围外记录</button>
+          </view>
+          <view class="card">
+            <view class="section-heading"><text class="section-title">今天的记录</text><text class="small muted">{{todayRecords.length}} 笔</text></view>
+            <block wx:for="{{todayRecords}}" wx:key="id"><template is="record-row" data="{{record: item}}" /></block>
+            <view wx:if="{{!todayRecords.length}}" class="empty compact"><text class="muted">今天还没有记录，测量后再来记。</text></view>
+          </view>
+        </block>
+
+        <block wx:elif="{{view === 'capture'}}">
+          <view class="stack capture-heading"><text class="section-title">拍清血糖仪屏幕</text></view>
+          <view class="capture-frame">
+            <camera wx:if="{{cameraOn && !privacyOpen}}" class="camera" device-position="back" flash="off" binderror="cameraError" />
+            <image aria-label="血糖仪原图，请对照数值与单位" wx:elif="{{photoPath}}" class="photo capture-photo" src="{{photoPath}}" mode="aspectFit" />
+            <image aria-label="血糖仪原图，请对照数值与单位" wx:elif="{{demo}}" class="photo capture-photo" src="/assets/demo-meter.png" mode="aspectFit" />
+            <view wx:else class="capture-placeholder"><image aria-hidden="{{true}}" class="camera-placeholder-icon" src="/assets/icons/camera-green.png" mode="aspectFit" /><text>点击下方按钮开启相机</text><text class="small muted">也可以从相册选一张照片</text></view>
+          </view>
+          <text wx:if="{{demo && !cameraOn && !photoPath}}" class="small muted">示例照片</text>
+          <text wx:if="{{ocrMessage}}" class="notice {{recognizing ? '' : 'warning'}}">{{ocrMessage}}</text>
+          <text wx:if="{{recognizing}}" class="muted">正在识别，请稍候…</text>
+        </block>
+
+        <block wx:elif="{{view === 'review'}}">
+          <view wx:if="{{photoPath}}" class="card photo-review"><view class="section-heading"><text class="section-title">对照原图核对</text><button class="text-button" bindtap="retake">重新拍照</button></view><image aria-label="血糖仪原图，请对照数值与单位" class="photo review-photo" src="{{photoPath}}" mode="aspectFit" /><text wx:if="{{ocrMessage}}" class="notice">{{ocrMessage}}</text><text wx:if="{{ocrRaw}}" class="small muted">识别原文：{{ocrRaw}}</text></view>
+          <view wx:elif="{{draft.source === 'photo'}}" class="notice"><text>请对照血糖仪填写。</text><button class="text-button" bindtap="retake">返回拍照</button></view>
+          <view class="card stack">
+            <view id="value-field" class="stack"><text class="form-label">血糖数值</text><view class="form-row value-row"><input class="input value-input" name="glucoseValue" type="digit" value="{{draft.value}}" placeholder="例如 6.1" placeholder-style="font-size:22px;font-weight:400;" maxlength="7" focus="{{valueFocus}}" data-field="value" data-scroll="value-field" bindinput="draftInput" bindfocus="focusField" adjust-position="{{false}}" aria-label="血糖数值" /><picker class="form-unit" mode="selector" range="{{units}}" value="{{draftUnitIndex < 0 ? 0 : draftUnitIndex}}" bindchange="changeDraftUnit" aria-label="选择血糖仪显示的单位"><view class="field"><text>{{draft.unit || '请选择单位'}}</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></view></picker></view></view>
+            <view id="moment-field" class="stack"><text class="form-label">什么时候测的？</text><view class="choice-grid"><button wx:for="{{moments}}" wx:key="key" class="choice {{selectedMoment === item.key ? 'selected' : ''}} {{item.key === 'other' ? 'choice-wide' : ''}}" data-moment="{{item.key}}" bindtap="chooseMoment">{{item.label}}</button></view><picker wx:if="{{selectedMoment === 'after'}}" mode="selector" range="{{intervals}}" value="{{afterIndex}}" bindchange="changeAfter" aria-label="选择餐后间隔"><view class="field"><text>餐后间隔</text><text>{{intervals[afterIndex]}}</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></view></picker><text wx:if="{{selectedMoment === 'after'}}" class="small muted">从第一口饭计时</text></view>
+            <view id="time-field" class="stack"><text class="form-label">测量日期和时间</text><view class="form-row date-time-row"><picker mode="date" value="{{draftDate}}" bindchange="changeDate" aria-label="选择测量日期"><view class="field">{{draftDate}}</view></picker><picker mode="time" value="{{draftTime}}" bindchange="changeTime" aria-label="选择测量时间"><view class="field">{{draftTime}}</view></picker></view></view>
+            <view id="note-field" class="stack"><button class="text-button note-toggle" bindtap="toggleNote"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/note-green.png" mode="aspectFit" /><text>{{noteOpen ? '备注（选填）' : '添加备注（选填）'}}</text></button><textarea wx:if="{{noteOpen}}" class="input note-input" name="note" value="{{draft.note}}" maxlength="2000" placeholder="例如：今天散步了，或晚饭吃得晚" data-field="note" data-scroll="note-field" bindinput="draftInput" bindfocus="focusField" adjust-position="{{false}}" auto-height="{{true}}" show-confirm-bar="{{false}}" aria-label="测量备注" /></view>
+          </view>
+          <text wx:if="{{formError}}" class="notice warning" aria-role="alert" aria-live="assertive">{{formError}}</text>
+          <button class="text-button muted" bindtap="discardDraft">放弃这次填写</button>
+        </block>
+
+        <block wx:elif="{{view === 'analysis'}}">
+          <view class="card chart-card"><template is="trend-controls" data="{{days: days, momentIndex: momentIndex, unitIndex: unitIndex, contextLabels: contextLabels, units: units}}" /><view class="row chart-label"><text>{{contextLabel}} · {{unitLabel}}</text><text class="small muted">{{periodText}}</text></view><image id="trend-picture" class="chart chart-image" src="{{chartImage}}" mode="aspectFit" bindtouchend="selectChart" aria-label="当前筛选条件下的血糖记录趋势图" /><text class="small muted">{{chartCaption}}</text></view>
+          <view class="card stack"><text class="section-title">{{analysisTitle}}</text><view class="metric-grid"><view class="metric"><text class="muted">这{{days}}天均值</text><text class="metric-number">{{currentMean}}</text><text class="small muted">{{analysis.count}} 笔 · {{analysis.daysRecorded}} 天</text></view><view class="metric"><text class="muted">前{{days}}天均值</text><text class="metric-number">{{previousMean}}</text><text class="small muted">{{analysis.previousCount}} 笔 · {{analysis.previousDaysRecorded}} 天</text></view></view><view class="row"><text>最低 {{minimum}}</text><text>最高 {{maximum}}</text><text class="unit">{{unitLabel}}</text></view></view>
+          <view class="card stack"><view class="section-heading"><text class="section-title">我设定的范围</text><button class="text-button" bindtap="openTarget">{{target ? '修改范围' : '设置范围'}}</button></view><block wx:if="{{target}}"><text class="target-reading">{{target.low}} – {{target.high}} <text class="unit">{{target.unit}}</text></text><text class="small muted">{{contextLabel}} · 更新于 {{target.updatedText}}</text><view class="metric-grid range-metrics"><view class="metric"><text class="metric-number">{{analysis.belowCount}}</text><text>低于范围</text></view><view class="metric"><text class="metric-number">{{analysis.aboveCount}}</text><text>高于范围</text></view></view><text class="small muted">{{analysis.inRangeCount}} / {{analysis.assessedCount}} 笔在范围内</text></block><block wx:else><text class="muted">尚未设置</text></block><text wx:if="{{analysis.targetError}}" class="notice warning">{{analysis.targetError}}</text></view>
+          <view wx:if="{{lowRecords.length}}" class="card warning low-card"><view class="section-heading"><text class="section-title">历史低值 · {{lowRecords.length}} 条</text><image aria-hidden="{{true}}" class="icon" src="/assets/icons/info-green.png" mode="aspectFit" /></view><text class="small">低于 3.9 mmol/L 或 70 mg/dL</text><block wx:for="{{lowRecords}}" wx:key="id"><template is="record-row" data="{{record: item}}" /></block></view>
+          <view class="card"><view class="section-heading"><text class="section-title">回看原始记录</text><text class="small muted">{{analysisRecordCount}} 笔</text></view><view wx:if="{{target}}" class="segment"><button class="{{outsideOnly ? 'selected' : ''}}" bindtap="showOutside">范围外</button><button class="{{!outsideOnly ? 'selected' : ''}}" bindtap="showEveryRecord">全部测量</button></view><block wx:for="{{analysisRecords}}" wx:key="id"><template is="record-row" data="{{record: item}}" /></block><view wx:if="{{!analysisRecords.length}}" class="empty compact"><text class="muted">{{target && outsideOnly ? '暂无范围外记录' : '暂无符合条件的记录'}}</text></view><button wx:if="{{analysisRecordCount > 5}}" class="text-button" bindtap="moreRecords">{{showAllRecords ? '收起记录' : '查看全部 ' + analysisRecordCount + ' 笔'}}</button><button class="secondary previous-toggle" bindtap="togglePrevious">{{previousOpen ? '收起前期样本' : '查看前' + days + '天的原始样本'}}</button><view wx:if="{{previousOpen}}" class="previous-records"><view class="section-heading"><text>前{{days}}天</text><text class="small muted">{{previousPeriod}}</text></view><block wx:for="{{previousRecords}}" wx:key="id"><template is="record-row" data="{{record: item}}" /></block><view wx:if="{{!previousRecords.length}}" class="empty compact"><text class="muted">前一段暂无记录</text></view></view></view>
+        </block>
+
+        <block wx:elif="{{view === 'records'}}">
+          <view class="section-heading"><text class="section-title">我的测量记录</text><text class="small muted">{{historyTotal}} 笔</text></view>
+          <view class="card filters history-filters"><picker mode="selector" range="{{historyOptions}}" value="{{historyIndex}}" bindchange="changeHistory" aria-label="筛选记录测量时机"><view class="field"><text>{{historyOptions[historyIndex]}}</text><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></view></picker><picker mode="date" value="{{historyDate}}" bindchange="changeHistoryDate" aria-label="筛选记录日期"><view class="field">{{historyDate || '选择日期'}}</view></picker><button wx:if="{{historyIndex || historyDate}}" class="text-button" bindtap="clearHistory">重置筛选</button></view>
+          <view class="card"><block wx:for="{{historyRecords}}" wx:key="id"><template is="record-row" data="{{record: item}}" /></block><button wx:if="{{historyTotal > historyRecords.length}}" class="secondary" bindtap="moreHistory">再看50笔（已显示{{historyRecords.length}}笔）</button><view wx:if="{{!historyRecords.length}}" class="empty"><text class="section-title">还没有符合条件的记录</text><button class="primary" bindtap="startRecord">记一笔</button></view></view>
+        </block>
+
+        <block wx:elif="{{view === 'detail'}}">
+          <block wx:if="{{detail}}"><view class="card stack"><view class="row"><text class="pill">{{detail.contextText}}</text><text class="small muted">{{detail.source === 'photo' ? '拍照录入' : '手动输入'}}</text></view><view class="reading"><text>{{detail.value}}</text><text class="unit">{{detail.unit}}</text></view><text>{{detail.dateTime}}</text><text class="small muted">{{detail.statusText}}</text><text wx:if="{{detail.rangeStatus}}">{{detail.rangeStatus}}</text><text wx:if="{{detail.deletedAt}}" class="notice warning">这条记录已移至最近删除。</text><view wx:if="{{detail.note}}" class="notice note-content"><text class="form-label">测量备注</text><text selectable="{{true}}">{{detail.note}}</text></view></view><view wx:if="{{!detail.deletedAt}}" class="stack"><button class="primary" bindtap="editRecord"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/edit-white.png" mode="aspectFit" />修改这条记录</button><button wx:if="{{!demo}}" class="text-button danger" bindtap="removeRecord">移至最近删除</button></view><button wx:elif="{{!demo}}" class="primary" data-id="{{detail.id}}" bindtap="restoreRecord">恢复这条记录</button></block>
+          <view wx:else class="card empty"><text class="section-title">暂时找不到这条记录</text><text class="muted">请返回列表，查看最新内容。</text><button class="secondary" bindtap="toRecords">返回全部记录</button></view>
+        </block>
+
+        <block wx:elif="{{view === 'mine'}}">
+          <view class="card stack"><view class="row"><view class="stack"><text class="section-title">{{demo ? '示例血糖本' : '我的血糖本'}}</text></view><image aria-hidden="{{true}}" class="profile-icon" src="/assets/icons/person-green.png" mode="aspectFit" /></view><text class="sync-status {{syncTone}}">{{syncText}}</text><text wx:if="{{outboxCount && !demo}}" class="small muted">还有 {{outboxCount}} 项未完成云端同步。</text><text wx:if="{{syncError && !demo}}" class="notice warning">{{syncError}}</text><button wx:if="{{!demo}}" class="secondary" bindtap="retrySync" loading="{{connecting}}">重新同步</button><button wx:else class="primary" bindtap="leaveDemo">退出示例，连接自己的微信</button></view>
+          <view class="card settings-card"><button class="setting-row" bindtap="toggleLarge"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/settings-green.png" mode="aspectFit" /><view class="stack"><text>更大字号</text></view></view><text class="pill">{{largeType ? '已开启' : '未开启'}}</text></button><button class="setting-row" bindtap="toRecords"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/note-green.png" mode="aspectFit" /><text>全部测量记录</text></view><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></button><button class="setting-row" bindtap="toAnalysis"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/chart-green.png" mode="aspectFit" /><text>近期分析与个人范围</text></view><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></button><button wx:if="{{!demo}}" class="setting-row" bindtap="toConflicts"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/info-green.png" mode="aspectFit" /><text>待确认的版本</text></view><text>{{conflicts.length}} 项</text></button><button wx:if="{{!demo}}" class="setting-row" bindtap="toTrash"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/trash-green.png" mode="aspectFit" /><text>最近删除</text></view><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></button><button wx:if="{{!demo}}" class="setting-row" bindtap="exportRecords"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/download-green.png" mode="aspectFit" /><text>导出我的记录</text></view><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></button><button class="setting-row" bindtap="toPrivacy"><view class="row"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/info-green.png" mode="aspectFit" /><text>数据与隐私说明</text></view><image aria-hidden="{{true}}" class="icon next-icon" src="/assets/icons/next-muted.png" mode="aspectFit" /></button></view>
+          <button wx:if="{{authenticated && !demo}}" class="text-button muted" bindtap="logout">退出本次登录</button><text class="small muted version">体验版 {{version}}</text>
+        </block>
+
+        <block wx:elif="{{view === 'trash'}}">
+          <view class="card"><view wx:for="{{trashRecords}}" wx:key="id" class="trash-record"><template is="record-row" data="{{record: item}}" /><button class="secondary" data-id="{{item.id}}" bindtap="restoreRecord"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/restore-green.png" mode="aspectFit" />恢复记录</button></view><view wx:if="{{!trashRecords.length}}" class="empty"><image aria-hidden="{{true}}" class="empty-icon" src="/assets/icons/trash-muted.png" mode="aspectFit" /><text class="section-title">最近没有删除记录</text><button class="secondary" bindtap="toRecords">查看全部记录</button></view></view>
+        </block>
+
+        <block wx:elif="{{view === 'target'}}">
+          <view class="row"><text class="pill">{{targetContext}}</text><text class="unit">{{unitLabel}}</text></view><view class="card stack"><view id="target-low-field" class="stack"><text class="form-label">下限</text><view class="form-row"><input class="input" name="targetLow" type="digit" value="{{targetLow}}" placeholder="填写下限" maxlength="7" data-field="low" data-scroll="target-low-field" bindinput="targetInput" bindfocus="focusField" adjust-position="{{false}}" aria-label="个人范围下限" /><text class="unit">{{unitLabel}}</text></view></view><view id="target-high-field" class="stack"><text class="form-label">上限</text><view class="form-row"><input class="input" name="targetHigh" type="digit" value="{{targetHigh}}" placeholder="填写上限" maxlength="7" data-field="high" data-scroll="target-high-field" bindinput="targetInput" bindfocus="focusField" adjust-position="{{false}}" aria-label="个人范围上限" /><text class="unit">{{unitLabel}}</text></view></view></view><text wx:if="{{targetError}}" class="notice warning" aria-role="alert" aria-live="assertive">{{targetError}}</text><button wx:if="{{target}}" class="text-button" bindtap="clearTarget">清除这个时机的个人范围</button><button class="text-button muted" bindtap="back">取消，返回分析</button>
+        </block>
+
+        <block wx:elif="{{view === 'conflicts'}}">
+          <view wx:if="{{conflicts.length}}" class="notice"><text>同一内容在手机和云端有不同版本。</text><text class="small muted">请逐项核对，再决定保留哪一版。未确认前不会自动覆盖。</text></view><view wx:for="{{conflicts}}" wx:key="id" class="card stack"><text class="section-title">核对这次修改</text><view class="notice stack"><text class="form-label">手机上的版本</text><text selectable="{{true}}">{{item.localText}}</text></view><view class="notice stack"><text class="form-label">云端的版本</text><text selectable="{{true}}">{{item.cloudText}}</text></view><button class="primary" data-id="{{item.id}}" data-choice="local" bindtap="resolveVersion">保留手机版本，重新保存</button><button class="secondary" data-id="{{item.id}}" data-choice="cloud" bindtap="resolveVersion">采用云端版本</button></view><view wx:if="{{!conflicts.length}}" class="card empty"><image aria-hidden="{{true}}" class="empty-icon" src="/assets/icons/check-green.png" mode="aspectFit" /><text class="section-title">没有需要确认的版本</text><text class="muted">可以安心继续记录。</text><button class="secondary" bindtap="toHome">返回首页</button></view>
+        </block>
+
+        <block wx:elif="{{view === 'privacy'}}">
+          <view class="card stack privacy-copy"><text class="section-title">你的记录，放在自己的血糖本里</text><text>连接微信时，用当前微信在本小程序中的身份区分数据。不需要填写昵称、头像或手机号。</text><text class="form-label">各自记录，暂不共享</text><text>每个微信只查看、修改和恢复自己的记录。父母各用自己的微信进入，就各自拥有一本记录。</text><text class="form-label">本机与云端保存</text><text>保存后先保存在本机，联网后同步到本小程序所属云环境。只有显示“已同步到云端”，才表示已完成云端保存。未同步的本机内容无法从其他手机取回。</text><text>退出登录会隐藏个人记录；本机缓存和未同步内容保留，再次验证同一个微信后继续使用。云端管理人员具有技术管理权限。</text><text class="form-label">拍照与识别</text><text>仅在你主动开启相机或选择照片时使用图片。启用识别后，所选图片会发送到本小程序的云函数和专用识别服务处理；不发送到第三方通用大模型。照片用于这次识别和核对，血糖记录中不保存原图。识别可能出错，数值、小数点与单位都需核对后再保存。</text><text class="form-label">删除、恢复与导出</text><text>移至“最近删除”后可以恢复。导出文件由你自行选择接收位置，请妥善保管其中的个人健康信息。</text><text class="form-label">关于分析</text><text>趋势、均值和个人范围用于回看已记录的测量，无法说明没有测量的时段，也不提供诊断或用药建议。</text><button class="secondary" bindtap="openPrivacyContract">查看小程序隐私保护指引</button><button class="text-button" bindtap="back">我知道了，返回</button></view>
+        </block>
+      </block>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{ready && showNav}}" class="footer bottom-nav" style="padding-bottom:{{safeBottom}}px;">
+    <button class="nav-item {{view === 'home' ? 'selected' : ''}}" bindtap="toHome"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/home-{{view === 'home' ? 'green' : 'muted'}}.png" mode="aspectFit" /><text>首页</text></button>
+    <button class="nav-item nav-center" bindtap="startRecord"><view class="nav-center-icon"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/plus-white.png" mode="aspectFit" /></view><text>记一笔</text></button>
+    <button class="nav-item {{view === 'mine' ? 'selected' : ''}}" bindtap="toMine"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/person-{{view === 'mine' ? 'green' : 'muted'}}.png" mode="aspectFit" /><text>我的</text></button>
+  </view>
+
+  <view wx:if="{{ready && view === 'capture'}}" class="footer capture-actions" style="padding-bottom:{{safeBottom}}px;">
+    <button class="capture-side" bindtap="chooseAlbum" disabled="{{recognizing}}"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/album-green.png" mode="aspectFit" /><text>相册</text></button>
+    <button class="capture-shutter" bindtap="shutter" disabled="{{recognizing}}" aria-label="{{cameraOn ? '拍照识别' : '开启相机'}}"><view class="shutter-circle"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/camera-white.png" mode="aspectFit" /></view><text>{{recognizing ? '正在识别' : cameraOn ? '拍照' : '开启相机'}}</text></button>
+    <button class="capture-side" bindtap="manual" disabled="{{recognizing}}"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/edit-green.png" mode="aspectFit" /><text>手动输入</text></button>
+  </view>
+
+  <view wx:if="{{ready && formFooter}}" class="footer form-footer" style="bottom:{{keyboardHeight}}px;padding-bottom:{{keyboardHeight > 0 ? 12 : safeBottom}}px;">
+    <button wx:if="{{view === 'review'}}" class="primary" bindtap="saveRecord"><image aria-hidden="{{true}}" class="icon" src="/assets/icons/check-white.png" mode="aspectFit" /><text>{{demo ? '完成这次示例' : '核对无误，保存记录'}}</text></button>
+    <button wx:elif="{{view === 'target'}}" class="primary" bindtap="saveTarget">保存这个范围</button>
+  </view>
+
+  <view wx:if="{{privacyOpen}}" class="privacy-overlay">
+    <view class="privacy-modal stack"><image aria-hidden="{{true}}" class="privacy-icon" src="/assets/icons/info-green.png" mode="aspectFit" /><text class="section-title">使用相机或照片前</text><text>请阅读小程序隐私保护指引。所选照片将发送到本小程序的云端识别服务处理，保存前需要自己核对。</text><button class="text-button" bindtap="openPrivacyContract">阅读隐私保护指引</button><button id="privacy-agree" class="primary" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="agreePrivacy">同意并继续</button><button class="secondary" bindtap="declinePrivacy">暂不使用</button></view>
+  </view>
+</view>

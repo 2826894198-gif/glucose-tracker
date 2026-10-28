@@ -1,0 +1,22 @@
+{
+  "description": "家人血糖本：各自记录、个人云保存",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "compileType": "miniprogram",
+  "appid": "YOUR_WECHAT_APPID",
+  "projectname": "家人血糖本·微信体验版",
+  "libVersion": "3.15.2",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "enhance": false,
+    "useIsolateContext": true,
+    "compileHotReLoad": false,
+    "urlCheck": true,
+    "minifyWXML": true
+  },
+  "packOptions": {
+    "ignore": []
+  }
+}
